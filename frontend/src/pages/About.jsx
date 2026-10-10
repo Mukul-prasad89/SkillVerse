@@ -1,4 +1,40 @@
+import { useState } from 'react'
+import { Plus } from 'lucide-react'
 import Navbar from '../components/Navbar'
+
+const FEATURES = [
+  ['Interactive skill tree', 'Zoom, pan, click. Structured nodes, not a boring checklist.'],
+  ['Actionable nodes', 'Weekend project + GitHub repos + interview Qs per skill.'],
+  ['Auto re-route', 'Mark already known and the tree re-plans instantly.'],
+  ['Time-boxed', 'Set 10hrs/week, 6 months — AI fits the path to your life.'],
+  ['People path', 'See intern to junior to dream intermediate roles behind each step.'],
+  ['Track + share', 'Progress bar, unlocks, export PNG and share link.'],
+]
+
+function Accordion({ items }) {
+  const [open, setOpen] = useState(0)
+  return (
+    <div className="space-y-2">
+      {items.map(([t, d], i) => {
+        const isOpen = open === i
+        return (
+          <div key={t} className={`rounded-2xl border transition ${isOpen ? 'border-white/25 bg-white/[0.06]' : 'border-white/10 bg-white/[0.03] hover:border-white/30/20'}`}>
+            <button
+              onClick={() => setOpen(isOpen ? -1 : i)}
+              className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
+            >
+              <span className="font-semibold text-white">{t}</span>
+              <span className={`shrink-0 w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-transform ${isOpen ? 'rotate-45' : ''}`}>
+                <Plus className="w-4 h-4 text-white" />
+              </span>
+            </button>
+            {isOpen && <p className="px-5 pb-5 text-sm text-gray-400 leading-relaxed">{d}</p>}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 export default function About() {
   return (
@@ -22,8 +58,12 @@ export default function About() {
           ))}
         </div>
 
-        <h2 className="font-display text-2xl font-bold text-white mt-10">Tech stack</h2>
-        <div className="flex flex-wrap gap-2 mt-3">
+        <h2 className="font-display text-2xl font-bold text-white mt-10">Features</h2>
+        <div className="mt-4">
+          <Accordion items={FEATURES} />
+        </div>
+
+        <h2 className="font-display text-2xl font-bold text-white mt-10">Tech stack</h2>        <div className="flex flex-wrap gap-2 mt-3">
           {['ReactJS', 'Tailwind', 'React Flow', 'Framer Motion', 'FastAPI', 'LangChain', 'Axios'].map((t) => (
             <span key={t} className="px-3 py-1.5 rounded-full bg-white/10 text-sm text-gray-200 border border-white/10">{t}</span>
           ))}

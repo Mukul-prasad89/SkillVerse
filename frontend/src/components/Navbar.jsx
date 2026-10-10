@@ -27,7 +27,7 @@ export default function Navbar() {
           {link('/', 'Home')}
           {link('/about', 'About')}
           {link('/dashboard', 'Dashboard')}
-          <a href="/#contact" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 transition">Contact</a>
+          {link('/contact', 'Contact')}
         </div>
         <div className="hidden md:flex items-center gap-3">
           <Link to="/dashboard" className="px-4 py-2 rounded-xl bg-white text-black text-sm font-semibold hover:bg-gray-200 transition">
@@ -41,6 +41,7 @@ export default function Navbar() {
           {link('/', 'Home')}
           {link('/about', 'About')}
           {link('/dashboard', 'Dashboard')}
+          {link('/contact', 'Contact')}
           <Link to="/dashboard" className="px-4 py-2 rounded-xl bg-white text-black text-sm font-semibold text-center">Generate Roadmap</Link>
         </div>
       )}

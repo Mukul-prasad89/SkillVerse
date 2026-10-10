@@ -3,7 +3,7 @@ import { Check, Code2, Briefcase, Rocket, Award, Star } from 'lucide-react'
 
 const TYPE_STYLE = {
   skill: { border: 'border-gray-400/60', bg: 'bg-white/[0.08]', text: 'text-gray-100', Icon: Code2 },
-  role: { border: 'border-white/70', bg: 'bg-white/[0.12]', text: 'text-white', Icon: Briefcase },
+  role: { border: 'border-white', bg: 'bg-white/[0.12]', text: 'text-white', Icon: Briefcase },
   project: { border: 'border-gray-500/60 border-dashed', bg: 'bg-white/[0.05]', text: 'text-gray-200', Icon: Rocket },
   cert: { border: 'border-gray-300/50', bg: 'bg-white/[0.09]', text: 'text-gray-100', Icon: Award },
   milestone: { border: 'border-white', bg: 'bg-white/[0.14]', text: 'text-white', Icon: Star },

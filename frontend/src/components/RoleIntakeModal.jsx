@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Sparkles, Loader2, Wand2, Clock } from 'lucide-react'
 import api, { generateRoadmap } from '../lib/api'
+import { useCountdown } from '../lib/useCountdown'
 
 export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
   const [bgText, setBgText] = useState('')
@@ -10,6 +11,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
   const [parsing, setParsing] = useState(false)
   const [parsed, setParsed] = useState(null)
   const [generating, setGenerating] = useState(false)
+  const { seconds: countdown, start: startCountdown, stop: stopCountdown } = useCountdown()
 
   if (!role) return null
 
@@ -32,6 +34,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
 
   const generate = async () => {
     setGenerating(true)
+    startCountdown(17)
     try {
       // Shared helper tries AI pipeline (/api/roadmaps/generate) -> legacy -> mock
       const payload = {
@@ -45,6 +48,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
       const data = await generateRoadmap(payload)
       onParsed(data, payload)
     } finally {
+      stopCountdown()
       setGenerating(false)
     }
   }
@@ -64,7 +68,6 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="text-4xl">{role.icon}</div>
                 <div>
                   <h2 className="font-display font-bold text-white text-xl leading-tight">{role.title}</h2>
                   <p className="text-xs text-gray-300 font-medium">{role.company} • ~{role.months}mo • {role.difficulty}</p>
@@ -73,7 +76,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
               <button onClick={onClose} className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="mt-5 p-4 rounded-2xl bg-white/[0.06] border border-white/15">
+            <div className="mt-5 p-4 rounded-2xl bg-white/[0.06] border border-white/10">
               <div className="text-sm font-bold text-white">Tell us in your own words</div>
               <p className="text-xs text-gray-400 mt-1">
                 e.g. “I know HTML, CSS, a bit of JS. Built a portfolio + todo app. No backend yet.” — AI extracts skills, projects & level.
@@ -108,7 +111,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
                 {parsing ? <><Loader2 className="w-4 h-4 animate-spin" /> AI reading your background...</> : <><Wand2 className="w-4 h-4" /> Analyze my background</>}
               </button>
             ) : (
-              <div className="mt-4 p-4 rounded-2xl bg-white/[0.06] border border-white/20">
+              <div className="mt-4 p-4 rounded-2xl bg-white/[0.06] border border-white/10">
                 <div className="text-xs font-bold text-white uppercase tracking-wider">AI understood you</div>
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   {(parsed.known_skills || []).map((s) => (
@@ -124,7 +127,7 @@ export default function RoleIntakeModal({ role, open, onClose, onParsed }) {
             )}
 
             <button onClick={generate} disabled={generating || !bgText.trim()} className="mt-3 w-full py-4 rounded-2xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 glow-violet">
-              {generating ? <><Loader2 className="w-5 h-5 animate-spin" /> Building your skill tree...</> : <><Sparkles className="w-5 h-5" /> Generate My Skill Tree →</>}
+              {generating ? <><Loader2 className="w-5 h-5 animate-spin" /> Building your skill tree... <span className="text-green-600 font-mono font-bold">{countdown !== null ? `${countdown}s` : ''}</span></> : <><Sparkles className="w-5 h-5" /> Generate My Structured Roadmap</>}
             </button>
             <p className="text-[11px] text-gray-600 text-center mt-2">Background text → LLM keyword extraction → personalized timeline</p>
           </motion.div>

@@ -44,7 +44,7 @@ export default function DetailPanel({ node, goal, onClose, onComplete, onKnown, 
         {loading && <div className="mt-6 space-y-3 animate-pulse"><div className="h-20 bg-white/10 rounded-xl" /><div className="h-24 bg-white/10 rounded-xl" /><div className="h-24 bg-white/10 rounded-xl" /></div>}
 
         {ai && (
-          <div className="mt-5 p-4 rounded-xl bg-white/[0.05] border border-white/15 text-sm space-y-2.5">
+          <div className="mt-5 p-4 rounded-xl bg-white/[0.05] border border-white/10 text-sm space-y-2.5">
             <div className="text-[11px] uppercase tracking-wider text-gray-300 font-bold">AI plan for this step</div>
             <div className="flex flex-wrap gap-1.5 text-[11px]">
               {ai.start_week && <span className="px-2 py-0.5 rounded-full bg-white/10 text-gray-200">W{ai.start_week}–{ai.end_week} • {ai.estimated_hours}h</span>}
@@ -65,7 +65,7 @@ export default function DetailPanel({ node, goal, onClose, onComplete, onKnown, 
 
         {detail && (
           <div className="mt-5 space-y-4 text-sm">
-            <div className="p-4 rounded-xl bg-white/[0.06] border border-white/15">
+            <div className="p-4 rounded-xl bg-white/[0.06] border border-white/10">
               <div className="font-bold text-white mb-1">Weekend Project</div>
               <p className="text-gray-300">{detail.weekend_project}</p>
             </div>

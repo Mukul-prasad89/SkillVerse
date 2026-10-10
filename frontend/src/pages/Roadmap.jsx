@@ -176,8 +176,8 @@ export default function Roadmap() {
       </div>
 
       {/* LEGEND */}
-      <div className="px-4 py-2 flex flex-wrap gap-2 text-[11px] border-b border-white/5 bg-white/[0.02]">
-        {[['skill', 'bg-white/[0.08] text-gray-100 border-white/25'], ['role', 'bg-white/[0.14] text-white border-white/50'], ['project', 'bg-white/[0.05] text-gray-200 border-white/20 border-dashed'], ['cert', 'bg-white/[0.10] text-gray-100 border-white/30'], ['milestone', 'bg-white/[0.16] text-white border-white']].map(([t, cls]) => (
+      <div className="px-4 py-2 flex flex-wrap gap-2 text-[11px] border-b border-white/10 bg-white/[0.02]">
+        {[['skill', 'bg-white/[0.08] text-gray-100 border-white'], ['role', 'bg-white/[0.14] text-white border-white/50'], ['project', 'bg-white/[0.05] text-gray-200 border-white border-dashed'], ['cert', 'bg-white/[0.10] text-gray-100 border-white'], ['milestone', 'bg-white/[0.16] text-white border-white']].map(([t, cls]) => (
           <span key={t} className={`px-2.5 py-1 rounded-full border ${cls} font-semibold uppercase tracking-wide`}>{t}</span>
         ))}
         <span className="text-gray-500 ml-auto hidden md:inline">Click any node → project + repos + interview Qs • Drag to pan • Scroll to zoom</span>
@@ -185,7 +185,7 @@ export default function Roadmap() {
 
       {/* PHASES — straight from the AI JSON, in AI order */}
       {(sortedPhases?.length > 0) && (
-        <div className="px-4 py-2 flex gap-2 overflow-x-auto border-b border-white/5 bg-white/[0.02]">
+        <div className="px-4 py-2 flex gap-2 overflow-x-auto border-b border-white/10 bg-white/[0.02]">
           {sortedPhases.map((p, i) => {
             const done = (roadmap.nodes || []).filter((n) => n.phase_id === p.id && completed.includes(n.id)).length
             const total = (roadmap.nodes || []).filter((n) => n.phase_id === p.id).length
@@ -200,7 +200,7 @@ export default function Roadmap() {
             )
           })}
           {roadmap.meta?.feasibility === 'over_capacity' && (
-            <div className="px-3 py-1.5 rounded-xl bg-white/10 border border-white/40 text-white text-xs whitespace-nowrap font-semibold">
+            <div className="px-3 py-1.5 rounded-xl bg-white/10 border border-white/10 text-white text-xs whitespace-nowrap font-semibold">
               Capacity warning: over by {roadmap.meta.capacity_shortfall_hours}h — consider a longer timeline
             </div>
           )}
@@ -219,7 +219,7 @@ export default function Roadmap() {
           <div className="absolute left-1/2 top-6 -translate-x-1/2 px-6 py-3 rounded-2xl bg-white text-black font-bold shadow-2xl animate-pulse">Rebuilding your roadmap…</div>
         )}
         {notice && !replanning && (
-          <div className="absolute left-1/2 top-6 -translate-x-1/2 px-6 py-3 rounded-2xl bg-white text-black font-bold shadow-2xl border border-white/20 max-w-[90%] text-center text-sm">{notice}</div>
+          <div className="absolute left-1/2 top-6 -translate-x-1/2 px-6 py-3 rounded-2xl bg-white text-black font-bold shadow-2xl border border-white/10 max-w-[90%] text-center text-sm">{notice}</div>
         )}
         {progress === 100 && (
           <div className="absolute left-1/2 top-6 -translate-x-1/2 px-6 py-3 rounded-2xl bg-white text-black font-bold shadow-2xl">ROADMAP COMPLETE — you’re job-ready!</div>

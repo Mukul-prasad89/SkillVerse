@@ -28,6 +28,21 @@ body {
 .glow-violet { box-shadow: 0 0 24px rgba(255,255,255,0.08); }
 .glow-cyan { box-shadow: 0 0 24px rgba(255,255,255,0.08); }
 
+/* gray shine sweep on card hover */
+.card-shine { position: relative; overflow: hidden; }
+.card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.14) 50%, transparent 60%);
+  transform: translateX(-101%);
+  pointer-events: none;
+}
+.card-shine:hover::after {
+  transform: translateX(101%);
+  transition: transform 0.7s ease;
+}
+
 .marquee-track {
   display: flex;
   gap: 1rem;

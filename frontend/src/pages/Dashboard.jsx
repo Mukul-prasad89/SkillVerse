@@ -7,6 +7,7 @@ import RoleIntakeModal from '../components/RoleIntakeModal'
 import { ROLES } from '../lib/roles'
 import { useRoadmap } from '../lib/RoadmapContext'
 import { generateRoadmap } from '../lib/api'
+import { useCountdown } from '../lib/useCountdown'
 
 export default function Dashboard() {
   const [params] = useSearchParams()
@@ -17,6 +18,7 @@ export default function Dashboard() {
   const [goal, setGoal] = useState('')
   const [skillInput, setSkillInput] = useState('')
   const [modalRole, setModalRole] = useState(null)
+  const { seconds: countdown, start: startCountdown, stop: stopCountdown } = useCountdown()
 
   const openIntake = (r) => {
     setSelectedRole(r.id)
@@ -59,6 +61,7 @@ export default function Dashboard() {
   const generate = async () => {
     if (!goal.trim()) return alert('Type your dream job first')
     dispatch({ type: 'SET_LOADING', payload: true })
+    startCountdown(17)
     const payload = { goal, hours_per_week: state.hours, timeline_months: state.months, known_skills: state.known, level: state.level }
     const data = await generateRoadmap(payload)
     dispatch({ type: 'SET_FORM', payload: { goal } })
@@ -67,6 +70,7 @@ export default function Dashboard() {
       const recents = JSON.parse(localStorage.getItem('recent') || '[]')
       localStorage.setItem('recent', JSON.stringify([{ goal, at: Date.now() }, ...recents].slice(0, 6)))
     } catch {}
+    stopCountdown()
     dispatch({ type: 'SET_LOADING', payload: false })
     nav('/roadmap/latest')
   }
@@ -83,19 +87,27 @@ export default function Dashboard() {
           <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search roles: fintech, ml, mobile..." className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-white/40 placeholder:text-gray-600" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
-          {filtered.map((r) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+          {filtered.filter((r) => r.id !== 'custom').map((r) => (
             <RoleCard key={r.id} role={r} selected={selectedRole === r.id} onSelect={() => openIntake(r)} />
           ))}
         </div>
 
         <RoleIntakeModal role={modalRole} open={!!modalRole} onClose={() => setModalRole(null)} onParsed={handleModalParsed} />
 
+        {/* CUSTOM ROLE */}
+        <div className="mt-10" aria-hidden="true">
+          <div className="h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+        </div>
+        <div className="mt-6 mb-4 text-left">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white">Have a custom role or domain in mind?</h2>
+          <p className="text-gray-500 mt-1 text-sm">Enter the details below — dream role, your time, and what you already know — and AI will build your tree.</p>
+        </div>
         {/* INPUT PANEL */}
-        <div id="custom-panel" className="mt-8 rounded-3xl glass p-6 md:p-8 glow-violet">
+        <div id="custom-panel" className="max-w-4xl rounded-3xl glass p-6 md:p-8 glow-violet">
           <div className="flex items-center gap-2 text-white text-sm font-bold mb-4"><Sparkles className="w-4 h-4" /> CUSTOMIZE + GENERATE</div>
           <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Dream job (be hyper-specific)</label>
-          <input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder='e.g. Full Stack Developer at a climate tech startup' className="mt-2 w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-white/40 placeholder:text-gray-600" />
+          <input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder='e.g. Full Stack Developer at a climate tech startup' className="mt-2 w-full px-6 py-5 rounded-2xl bg-black/40 border border-white text-white text-base outline-none focus:border-white placeholder:text-gray-600" />
 
           <div className="grid md:grid-cols-3 gap-4 mt-5">
             <div className="p-4 rounded-xl bg-black/30 border border-white/10">
@@ -128,7 +140,7 @@ export default function Dashboard() {
             </div>
             <div className="flex flex-wrap gap-2 mt-2">
               {state.known.map((s) => (
-                <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-medium">
+                <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white text-xs font-medium">
                   {s}<button onClick={() => dispatch({ type: 'SET_FORM', payload: { known: state.known.filter((x) => x !== s) } })}><X className="w-3 h-3" /></button>
                 </span>
               ))}
@@ -137,7 +149,7 @@ export default function Dashboard() {
           </div>
 
           <button onClick={generate} disabled={state.loading} className="mt-6 w-full py-4 rounded-2xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-60 glow-violet">
-            {state.loading ? <><Loader2 className="w-5 h-5 animate-spin" /> AI is building your skill tree...</> : <><Sparkles className="w-5 h-5" /> Generate My Skill Tree →</>}
+            {state.loading ? <><Loader2 className="w-5 h-5 animate-spin" /> AI is building your skill tree... <span className="text-green-600 font-mono font-bold">{countdown !== null ? `${countdown}s` : ''}</span></> : <><Sparkles className="w-5 h-5" /> Generate My Structured Roadmap</>}
           </button>
           <p className="text-[11px] text-gray-600 text-center mt-3">Uses FastAPI + LangChain when backend live · mock AI for demo otherwise</p>
         </div>

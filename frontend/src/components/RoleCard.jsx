@@ -6,14 +6,13 @@ export default function RoleCard({ role, selected, onSelect }) {
     <motion.button
       whileHover={{ y: -4 }}
       onClick={onSelect}
-      className={`text-left p-5 rounded-2xl border transition w-full ${
+      className={`text-left p-5 rounded-2xl border transition w-full card-shine ${
         selected
           ? 'border-white/70 bg-white/10'
           : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/[0.07]'
       }`}
     >
-      <div className="font-display font-bold text-white text-xl">{role.icon}</div>
-      <h3 className="font-display font-bold text-white leading-tight mt-2">{role.title}</h3>
+      <h3 className="font-display font-bold text-white leading-tight">{role.title}</h3>
       <p className="text-xs text-gray-400 mt-1 font-medium">{role.company}</p>
       <p className="text-xs text-gray-400 mt-2 line-clamp-2">{role.description}</p>
       <div className="flex flex-wrap gap-1.5 mt-3">
