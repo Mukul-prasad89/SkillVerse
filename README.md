@@ -116,7 +116,6 @@ Skillverse uses AI to generate personalized career recommendations. These recomm
 - Fresh graduates seeking internships or entry-level roles.
 - Early-career professionals planning a transition into another role.
 - Learners who need a structured, project-oriented path toward a specific career.
-- 
 ![Skillverse Screenshot](https://github.com/user-attachments/assets/46f39b17-402e-4fac-8c43-94f124e4ef3e)
 
 
