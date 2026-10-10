@@ -5,6 +5,7 @@ AI-Powered Career Intelligence & Roadmapping
 **Problem Statement 1 — Reverse-Engineered Career Roadmapper**
 
 **Live Demo:** https://career-mapper-eight.vercel.app/
+Both mobile and desktop friendly.
 
 ## 1. What It Does
 
