@@ -1,76 +1,125 @@
-# Skillverse 
-AI-Powered Career Intelligence & Roadmapping
-
+# Skillverse
+## AI-Powered Career Intelligence & Roadmapping
 
 **Problem Statement 1 — Reverse-Engineered Career Roadmapper**
 
-**Live Demo:** https://career-mapper-eight.vercel.app/
-Both mobile and desktop friendly.
+**Live Demo:** https://career-mapper-eight.vercel.app/ 
+
+The application is designed to work on both desktop and mobile devices.
+### Expected Initial Loading Time
+
+The application uses free-tier hosting and AI API access. Consequently, response times can be higher than those of a continuously running, production-grade deployment.
+
+- **Initial backend wake-up:** Approximately 60 seconds after a period of inactivity, because the Render free-tier service may enter a sleeping state.
+- **Subsequent requests:** May respond faster once the backend is awake, although actual latency depends on server availability, model selection, API traffic, and response complexity.
+
 
 ## 1. What It Does
 
-Skillverse transforms a user's dream job into a personalized, interactive career roadmap. It helps students identify skill gaps, understand career progression, discover practical projects, and track their journey toward their target role instead of relying on generic career advice.
+Skillverse transforms a user's dream job into a personalized, interactive career roadmap. It helps students identify skill gaps, understand career progression, discover practical projects, and track their journey toward a target role instead of relying on generic career advice.
 
 ## 2. Key Features — PS 1
 
-- **AI-generated personalized roadmaps** based on the user's target role and existing skills, rather than predefined templates.
-- **Interactive skill graph** with clickable milestones and visual skill dependencies.
-- **Actionable milestones** with relevant projects, learning resources, and interview preparation.
-- **Dynamic roadmap updates** when users mark skills as already known or update their progress.
-- **Target-specific career planning** based on the user's desired role and company type.
+- **AI-Generated Personalized Roadmaps:** Generates career paths based on the user's target role and existing skills instead of relying exclusively on predefined templates.
+- **Interactive Skill Graph:** Displays skills, milestones, and their dependencies in an interactive visual graph.
+- **Actionable Milestones:** Provides relevant projects, learning resources, and interview preparation guidance.
+- **Dynamic Roadmap Updates:** Adapts the learning path when users mark skills as already known or update their progress.
+- **Target-Specific Career Planning:** Supports career planning based on the user's desired role and target company type.
+- **Responsive User Interface:** Provides an accessible experience across desktop and mobile devices.
 
-## 3. Done / Left / Plan
+## 3. Implementation Status
 
-**Done:** Core frontend and backend, AI-powered roadmap generation, interactive visualization, milestone guidance, and progress-based roadmap updates are implemented and deployed.
+**Completed**
+- Core frontend and backend implementation.
+- AI-powered career roadmap generation.
+- Interactive career and skill visualization.
+- Milestone-level learning guidance.
+- Progress-based roadmap updates.
+- Frontend and backend deployment.
 
-**Left:** According to the problem statement ask everything is ticked.
+**Remaining Validation and Improvements**
+- Handle API timeouts
+- Refine UI responsiveness and user experience.
 
-**Next:** Test the complete user journey, handle AI and API failures, refine the UI, verify deployment, and add future improvements.
+The core functionality described in Problem Statement 1 has been implemented. Final testing and reliability improvements remain important for validating the complete experience.
 
-## 4. Architecture & Why
+## 4. System Architecture and Technology Choices
 
-- **Frontend:** React, TypeScript, and React Flow for a responsive, interactive career graph.
-- **Backend:** Python and FastAPI for API handling and roadmap processing.
-- **AI orchestration:** LangChain coordinates prompt construction, LLM calls, and structured output processing.
-- **LLM:** Interprets career goals and generates role-specific skills, projects, and learning recommendations Open router api key that uses multi model api depending upon the usage and traffic.
-- **Validation & graph processing:** Pydantic validates structured data; graph logic manages skill dependencies and roadmap updates.
-- **Deployment:** Vercel hosts the frontend, while Render hosts the backend.
+### Frontend
+- **React:** Builds the component-based user interface.
+- **JavaScript:** Support application logic, interactivity, data handling, and type-safe development where applicable.
+- **Vercel:** Hosts the frontend application.
 
-The AI generates the roadmap dynamically. Application logic processes the output and updates the learning path as the user's skills change.
+### Backend
+- **Python:** Handles backend processing and application logic.
+- **FastAPI:** Provides API endpoints for communication between the frontend and backend.
+- **Pydantic:** Validates structured data and helps ensure that AI-generated roadmap information follows the expected schema.
+- **Render:** Hosts the backend API.
 
-## 5. What We Added Beyond the Brief
+### AI Orchestration and Generation
+- **LangChain:** Coordinates prompt construction, language-model calls, and structured output processing.
+- **OpenRouter API:** Provides access to supported language models through a unified API. Model selection can be configured according to availability, cost, and application requirements.
+- **Graph Processing Logic:** Organizes generated skills into dependencies and processes roadmap updates when the user's skills or progress change.
 
-**Future innovations:**
-- **Career Tunnel:** Practical role-specific challenges evaluated against defined rubrics.
+### How the Components Work Together
+
+1. The user enters a target career, existing skills, and relevant preferences.
+2. The React frontend sends the information to the FastAPI backend.
+3. LangChain prepares the request and coordinates the language-model interaction through OpenRouter.
+4. The AI generates a structured career roadmap containing skills, milestones, projects, and learning recommendations.
+5. Pydantic validates the response, and backend graph-processing logic organizes the dependencies.
+6. The frontend renders the resulting roadmap using React Flow.
+7. When the user updates their skills or progress, the application processes the changes and updates the learning path.
+
+## 5. Deployment and First-Run Performance
+
+**Frontend:** Vercel  
+**Backend:** Render  
+**AI Provider:** OpenRouter API using a free-tier model/API configuration.
+
+
+
+**Recommended user-facing message:**
+
+> First-time loading may take around 60 seconds while the backend starts. AI-powered roadmap generation may take approximately another 20 seconds depending on API availability and traffic. Please wait for the process to complete.
+
+## 6. What We Added Beyond the Brief
+
+The following are proposed future enhancements rather than confirmed implemented features.
+
+- **Career Tunnel:** Role-specific practical challenges evaluated against defined rubrics.
 - **Evidence-Based Skill Confidence:** Distinguishes self-reported skills from skills demonstrated through assessments.
-- **Alternative Career Paths:** Explores different routes toward the same target role.
+- **Alternative Career Paths:** Explores multiple routes toward the same target role.
+- **Assessment-Driven Roadmaps:** Uses demonstrated performance to improve recommendations and identify skill gaps.
 
-## 6. How to Run It
+These additions could help evolve Skillverse from a roadmap generator into a more comprehensive career intelligence platform.
 
-**Live application:** https://career-mapper-eight.vercel.app/
+| Category | Technologies |
+|---|---|
+| Frontend | React, JavaScript, TypeScript |
+| Visualization | React Flow |
+| Backend | Python, FastAPI |
+| AI orchestration | LangChain |
+| Language-model access | OpenRouter API |
+| Data validation | Pydantic |
+| Graph processing | Application-specific graph logic and configured libraries |
+| Frontend deployment | Vercel |
+| Backend deployment | Render |
+| Development workflow | Git, GitHub |
 
-**Local setup:**
+Skillverse uses AI to generate personalized career recommendations. These recommendations are intended as guidance and do not guarantee employment, interview success, or professional competence.
 
-1. Clone the repository: `git clone https://github.com/Mukul-prasad89/SkillVerse.git`
-2. Install backend dependencies from `backend/requirements.txt`.
-3. Configure the required environment variables using `backend/.env.example`.
-4. Start the FastAPI backend using the application's configured entry point.
-5. Install frontend dependencies using `npm install` in the frontend directory and run `npm run dev`.
+## 9. Target Users
 
-**Deployment note:** The backend is hosted on Render and may sleep after inactivity. The first request can take longer while the service wakes up.
+- College students exploring career options.
+- Final-year students preparing for placements.
+- Fresh graduates seeking internships or entry-level roles.
+- Early-career professionals planning a transition into another role.
+- Learners who need a structured, project-oriented path toward a specific career.
+- 
+![Skillverse Screenshot](https://github.com/user-attachments/assets/46f39b17-402e-4fac-8c43-94f124e4ef3e)
 
-## 7. Tools and AI Used
 
-React, TypeScript, React Flow, Python, FastAPI, LangChain, an LLM API, and Pydantic. Graph-processing libraries are used where configured in the implementation.
-
-Skillverse transparently uses AI to generate recommendations. These are guidance, not guarantees of employment or professional competence.
-
-## 8. Who It Is For
-
-College students, fresh graduates, internship seekers, and early-career professionals who want a clear, personalized path toward a specific career.
-
-**Our Vision:** Turn career aspirations into structured, actionable, and adaptive learning journeys.
-
----
+To turn career aspirations into structured, actionable, and adaptive learning journeys by connecting career goals with the skills, projects, and milestones needed to pursue them.
 
 **Skillverse — From Dream Career to Clear Direction.**
