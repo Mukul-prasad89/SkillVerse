@@ -87,7 +87,11 @@ export default function Dashboard() {
           <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search roles: fintech, ml, mobile..." className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-white/40 placeholder:text-gray-600" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+        <div className="mt-8 mb-4">
+          <h2 className="font-display text-xl md:text-2xl font-bold text-white">Click a card to enter your query or description</h2>
+          <p className="text-gray-500 mt-1 text-sm">Tell the AI what you've learned so far and get your structured roadmap.</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.filter((r) => r.id !== 'custom').map((r) => (
             <RoleCard key={r.id} role={r} selected={selectedRole === r.id} onSelect={() => openIntake(r)} />
           ))}
