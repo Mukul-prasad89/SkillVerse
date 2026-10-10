@@ -6,13 +6,9 @@
 **Live Demo:** https://career-mapper-eight.vercel.app/ 
 
 The application is designed to work on both desktop and mobile devices.
-### Expected Initial Loading Time
+**Recommended user-facing message:**
 
-The application uses free-tier hosting and AI API access. Consequently, response times can be higher than those of a continuously running, production-grade deployment.
-
-- **Initial backend wake-up:** Approximately 60 seconds after a period of inactivity, because the Render free-tier service may enter a sleeping state.
-- **Subsequent requests:** May respond faster once the backend is awake, although actual latency depends on server availability, model selection, API traffic, and response complexity.
-
+> First-time loading may take around 60 seconds while the backend starts. AI-powered roadmap generation may take approximately another 20 seconds depending on API availability and traffic. Please wait for the process to complete.
 
 ## 1. What It Does
 
@@ -77,11 +73,14 @@ The core functionality described in Problem Statement 1 has been implemented. Fi
 **Backend:** Render  
 **AI Provider:** OpenRouter API using a free-tier model/API configuration.
 
+### Expected Initial Loading Time
+
+The application uses free-tier hosting and AI API access. Consequently, response times can be higher than those of a continuously running, production-grade deployment.
+
+- **Initial backend wake-up:** Approximately 60 seconds after a period of inactivity, because the Render free-tier service may enter a sleeping state.
+- **Subsequent requests:** May respond faster once the backend is awake, although actual latency depends on server availability, model selection, API traffic, and response complexity.
 
 
-**Recommended user-facing message:**
-
-> First-time loading may take around 60 seconds while the backend starts. AI-powered roadmap generation may take approximately another 20 seconds depending on API availability and traffic. Please wait for the process to complete.
 
 ## 6. What We Added Beyond the Brief
 
