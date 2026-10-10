@@ -1,7 +1,4 @@
-"""Roadmap controller: validates request, invokes orchestration, returns result.
 
-Never calls the LLM directly. Never builds a hardcoded roadmap.
-"""
 import logging
 
 from fastapi import APIRouter, status
