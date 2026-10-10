@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Sparkles, MousePointerClick, Route, Trophy, ArrowRight, Search, ListTodo, Network, Mail, Send, Globe, AtSign, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
-import HeroTree from '../components/HeroTree'
+import Background3D from '../components/Background3D'
 import { ROLES } from '../lib/roles'
 
 export default function Landing() {
@@ -11,26 +11,26 @@ export default function Landing() {
     <div className="min-h-screen bg-black">
       <Navbar />
       {/* HERO + MARQUEE fill the first window */}
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col">
-      <header className="max-w-7xl mx-auto px-4 pt-10 pb-10 grid md:grid-cols-2 gap-10 items-center flex-1 w-full">
-        <div>
+      <div className="min-h-[calc(100vh-4rem)] flex flex-col relative overflow-hidden">
+      <Background3D />
+      <header className="max-w-3xl mx-auto px-4 pt-10 pb-10 flex flex-col items-center justify-center text-center flex-1 w-full relative z-10">
+        <div className="flex flex-col items-center">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold mb-5">
             <Sparkles className="w-3.5 h-3.5" /> AI reverse-engineers real career paths
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-4xl md:text-6xl font-bold text-white leading-[1.05]">
+          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-5xl md:text-7xl font-bold text-white leading-[1.05]">
             Don't guess your career. <span className="text-white">Reverse-engineer it.</span>
           </motion.h1>
-          <p className="text-gray-400 mt-5 text-base md:text-lg max-w-lg">
+          <p className="text-gray-400 mt-5 text-base md:text-lg max-w-xl">
             Type “Full Stack Dev at a climate startup”. Get a playable skill-tree with real roles, certs and projects — not “learn React lol”.
           </p>
-          <div className="flex flex-wrap gap-3 mt-7">
+          <div className="flex flex-wrap justify-center gap-3 mt-7">
             <Link to="/dashboard" className="px-6 py-3 rounded-xl bg-white text-black font-semibold flex items-center gap-2 hover:bg-gray-200">
               Generate My Roadmap <ArrowRight className="w-4 h-4" />
             </Link>
             <Link to="/dashboard" className="px-6 py-3 rounded-xl bg-white/10 border border-white/10 text-white font-semibold hover:bg-white/15">See sample tree</Link>
           </div>
         </div>
-        <HeroTree />
       </header>
 
       {/* MARQUEE */}
